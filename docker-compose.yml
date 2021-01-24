@@ -1,0 +1,33 @@
+version: '3.4'
+
+services:
+    mongo:
+        image: mongo:latest
+        ports:
+            - ${MONGO_PORT}:27017
+        networks:
+            - backend
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
+            MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+
+    node:
+        restart: always
+        build: .
+        command: ./node_modules/nodemon/bin/nodemon.js /usr/src/app/src/app.js
+        volumes:
+            - ./app:/usr/src/app/src
+        ports:
+            - ${SERVER_PORT}:${SERVER_PORT}
+        networks:
+            - backend
+        environment:
+            SERVER_PORT: ${SERVER_PORT}
+            MONGO_HOST: ${MONGO_HOST}
+            MONGO_PORT: ${MONGO_PORT}
+            MONGO_USERNAME: ${MONGO_USERNAME}
+            MONGO_PASSWORD: ${MONGO_PASSWORD}
+            MONGO_DATABASE: ${MONGO_DATABASE}
+
+networks:
+    backend:
