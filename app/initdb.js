@@ -14,7 +14,6 @@ exports.initializeDatabase = () => {
 
         Role.insertMany([
             { name: 'user' },
-            { name: 'provider' },
             { name: 'admin' }
         ], (err, roles) => {
             if (err) {

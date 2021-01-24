@@ -5,7 +5,7 @@ const db = {
     mongoose,
     user: require('./user'),
     role: require('./role'),
-    roles: ['user', 'admin', 'provider']
+    roles: ['user', 'admin']
 }
 
 module.exports = db

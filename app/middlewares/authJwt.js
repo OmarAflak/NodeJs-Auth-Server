@@ -43,33 +43,9 @@ isAdmin = (req, res, next) => {
     })
 }
 
-isProvider = (req, res, next) => {
-    User.findById(req.userId).exec((err, user) => {
-        if (err) {
-            return res.status(500).json(helper.error(err))
-        }
-
-        Role.find({ _id: { $in: user.roles }}, (err, roles) => {
-            if (err) {
-                return res.status(500).json(helper.error(err))
-            }
-
-            for (let i=0; i<roles.length; i++) {
-                if (roles[i].name === 'provider') {
-                    next()
-                    return
-                }
-            }
-
-            res.status(403).json(helper.error('Require Provider Role!'))
-        })
-    })
-}
-
 const authJwt = {
     verifyToken,
-    isAdmin,
-    isProvider
+    isAdmin
 }
 
 module.exports = authJwt
