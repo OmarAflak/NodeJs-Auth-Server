@@ -27,12 +27,6 @@ db.mongoose.connect(url, {
     app.use(bodyParser.urlencoded({ extended: true }))
     app.use(bodyParser.json())
     app.use(cors())
-    app.use((req, res, next) => {
-        res.header('Access-Control-Allow-Origin', '*')
-        res.header('Access-Control-Allow-Methods: DELETE, GET, POST, OPTIONS')
-        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, x-access-token, Content-Type, Accept')
-        next()
-    })
     app.use('/api', require('./routes/api'))
     app.listen(serverPort, () => console.log(`Listening at http://localhost:${serverPort}`))
     initializeDatabase()
